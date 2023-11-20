@@ -20,7 +20,7 @@ const FormLogin = () => {
         <Button type="submit">Login</Button>
       </div>
       <div className="text-center mt-4">
-        <a href="#" className="text-gray-600 hover:underline">
+        <a href="#" className="text-slate-300  hover:underline">
           Forgot password?
         </a>
       </div>

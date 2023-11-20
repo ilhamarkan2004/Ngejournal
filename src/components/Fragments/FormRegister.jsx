@@ -26,7 +26,7 @@ const FormRegister = () => {
         <Button type="submit">Register</Button>
       </div>
       <div className="text-center mt-4">
-        <a href="#" className="text-gray-600 hover:underline">
+        <a href="#" className="text-slate-300 hover:underline">
           Forgot password?
         </a>
       </div>

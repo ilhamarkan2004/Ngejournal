@@ -3,7 +3,7 @@ const Input = ({type,name,placeholder}) => {
       <input
         id={name}
         type={type}
-        className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        className=" bg-transparent appearance-none border-none rounded w-full py-3 px-4 text-white placeholder-gray-400 leading-tight focus:outline-none focus:shadow-outline"
         placeholder={placeholder}
       />
     );

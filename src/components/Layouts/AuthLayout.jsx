@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 
 const AuthLayout = ({ children, type, title }) => {
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
+    <div className="flex justify-center items-center min-h-screen  bg-cover bg-center bg-[url('/images/latar.jpg')]">
+      <div className="backdrop-blur-lg shadow-md rounded-lg md:rounded-xl lg:rounded-2xl px-8 pt-6 pb-8 mb-4 w-full max-w-md">
         <h2 className="text-3xl font-bold mb-3 text-center text-white">
           <span className="bg-gradient-to-r text-transparent from-blue-500 to-purple-500 bg-clip-text">
-           {title}
+            {title}
           </span>
         </h2>
-        <p className="text-slate-400 font-semibold text-sm">
-          Sign in to your account
+        <p className="text-slate-200 font-semibold text-sm text-center">
+          Welcome To Ngejounal !!!
         </p>
         {children}
         <Navigation type={type} />
@@ -22,7 +22,7 @@ const AuthLayout = ({ children, type, title }) => {
 const Navigation = ({ type }) => {
   if (type === "login") {
     return (
-      <p className="text-center text-gray-600 mt-6">
+      <p className="text-center text-slate-300 mt-6">
         Don't have an account?{" "}
         <Link to="/register" className="text-blue-500 hover:underline">
           Register
@@ -31,7 +31,7 @@ const Navigation = ({ type }) => {
     );
   } else {
     return (
-      <p className="text-center text-gray-600 mt-6">
+      <p className="text-center text-slate-300 mt-6">
         Already have an account?{" "}
         <Link to="/login" className="text-blue-500 hover:underline">
           Login
