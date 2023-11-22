@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const AuthLayout = ({ children, type, title }) => {
   return (
     <div className="flex justify-center items-center min-h-screen  bg-cover bg-center bg-[url('/images/latar.jpg')]">
-      <div className="backdrop-blur-lg shadow-md rounded-lg md:rounded-xl lg:rounded-2xl px-8 pt-6 pb-8 mb-4 w-full max-w-md">
+      <div className="backdrop-blur-lg shadow-md rounded-lg md:rounded-xl lg:rounded-2xl px-8 py-10 mb-4 w-full max-w-md">
         <h2 className="text-3xl font-bold mb-3 text-center text-white">
           <span className="bg-gradient-to-r text-transparent from-blue-500 to-purple-500 bg-clip-text">
             {title}
