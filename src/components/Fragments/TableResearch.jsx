@@ -1,5 +1,6 @@
 import { FaPencil } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
+import ModalForm from "./ModalForm";
 const TableResearch = () => {
   return (
     <div className="container mx-auto px-4 sm:px-8">
@@ -10,6 +11,7 @@ const TableResearch = () => {
           </h2>
         </div>
         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+          <ModalForm/>
           <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
             <table className="min-w-full leading-normal">
               <thead>

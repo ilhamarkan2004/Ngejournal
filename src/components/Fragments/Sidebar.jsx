@@ -6,16 +6,33 @@ import { GrResources } from "react-icons/gr";
 import { HiBeaker } from "react-icons/hi";
 import { FaCircleChevronLeft } from "react-icons/fa6";
 import { BiLogOut } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [nav, setNav] = useState(true);
 
   const menuItems = [
-    { icon: <RxDashboard size={20} className="mr-4" />, text: "Dashboard" },
-    { icon: <HiBeaker size={20} className="mr-4" />, text: "Research" },
-    { icon: <GrTask size={20} className="mr-4" />, text: "Task" },
-    { icon: <GrResources size={20} className="mr-4" />, text: "Resource" },
-    { icon: <BiLogOut size={20} className="mr-4" />, text: "Logout" },
+    {
+      icon: <RxDashboard size={20} className="mr-4" />,
+      text: "Dashboard",
+      url: "dashboard",
+    },
+    {
+      icon: <HiBeaker size={20} className="mr-4" />,
+      text: "Research",
+      url: "research",
+    },
+    { icon: <GrTask size={20} className="mr-4" />, text: "Task", url: "task" },
+    {
+      icon: <GrResources size={20} className="mr-4" />,
+      text: "Resource",
+      url: "users",
+    },
+    {
+      icon: <BiLogOut size={20} className="mr-4" />,
+      text: "Logout",
+      url: "logout",
+    },
   ];
 
   return (
@@ -71,12 +88,15 @@ const Sidebar = () => {
         </h2>
         <nav>
           <ul className="flex flex-col mt-10 text-slate-200">
-            {menuItems.map(({ icon, text }, index) => {
+            {menuItems.map(({ icon, text, url }, index) => {
               return (
                 <div key={index} className=" py-2.5">
-                  <li className="text-sm flex cursor-pointer font-serif  w-[60%] rounded-full mx-auto p-2 hover:text-orange-600 hover:bg-white">
+                  <Link
+                    to={`/${url}`}
+                    className="text-sm flex cursor-pointer font-serif  w-[60%] rounded-full mx-auto p-2 hover:text-orange-600 hover:bg-white"
+                  >
                     {icon} {text}
-                  </li>
+                  </Link>
                 </div>
               );
             })}

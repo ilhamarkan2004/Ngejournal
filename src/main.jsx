@@ -5,8 +5,9 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./pages/404.jsx";
-import Sidebar from "./Sidebar.jsx";
 import  Dashboard  from "./pages/Admin/Dashboard.jsx";
+import Users from "./pages/Admin/Users.jsx";
+import ModalForm from "./components/Fragments/ModalForm.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,16 +17,28 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />
+    element: <Login />,
   },
   {
     path: "/register",
     element: <Register />,
   },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/users",
+    element: <Users />,
+  },
+  {
+    path: "/form",
+    element: <ModalForm />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-   <Dashboard/>
+   <RouterProvider router={router}></RouterProvider>
   </React.StrictMode>
 );
