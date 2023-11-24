@@ -1,13 +1,13 @@
 import Main from "../../components/Fragments/Main";
 import Sidebar from "../../Sidebar";
-import TableResearch from "../../components/Fragments/TableResearch";
+import TableUser from "../../components/Fragments/TableUser";
 
 const Dashboard = () => {
   return (
     <>
       <Sidebar /> {/* Menampilkan sidebar */}
       <Main />
-      <TableResearch />
+      <TableUser />
     </>
   );
 };
