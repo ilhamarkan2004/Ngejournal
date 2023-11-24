@@ -8,7 +8,7 @@ import { FaCircleChevronLeft } from "react-icons/fa6";
 import { BiLogOut } from "react-icons/bi";
 
 const Sidebar = () => {
-  const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState(true);
 
   const menuItems = [
     { icon: <RxDashboard size={20} className="mr-4" />, text: "Dashboard" },
@@ -56,8 +56,8 @@ const Sidebar = () => {
       <div
         className={
           nav
-            ? "fixed top-0 left-0 w-[260px] h-screen bg-[#000842] z-10 duration-500"
-            : "fixed top-0 left-[-100%] w-[300px] h-screen bg-[#000842] z-10 duration-500"
+            ? "fixed top-0 left-0 w-[260px] h-screen bg-[#000842] z-10 duration-300"
+            : "fixed top-0 left-[-100%] w-[300px] h-screen bg-[#000842] z-10 duration-300"
         }
       >
         <FaCircleChevronLeft
@@ -70,7 +70,7 @@ const Sidebar = () => {
           Nge <span className="font-bold">Journal</span>
         </h2>
         <nav>
-          <ul className="flex flex-col mt-2 text-slate-200">
+          <ul className="flex flex-col mt-10 text-slate-200">
             {menuItems.map(({ icon, text }, index) => {
               return (
                 <div key={index} className=" py-2.5">

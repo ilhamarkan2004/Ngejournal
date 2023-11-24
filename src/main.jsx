@@ -6,6 +6,7 @@ import Register from "./pages/Register.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./pages/404.jsx";
 import Sidebar from "./Sidebar.jsx";
+import  Dashboard  from "./pages/Admin/Dashboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-   <Sidebar/>
+   <Dashboard/>
   </React.StrictMode>
 );
