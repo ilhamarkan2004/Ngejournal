@@ -1,64 +1,24 @@
 import React, { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
-const ModalForm = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    title: "",
-    startDate: "",
-    dueDate: "",
-    status: "",
-    file: null,
-  });
-
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData({
-      ...formData,
-      file: file,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Data:", formData);
-    setFormData({
-      title: "",
-      startDate: "",
-      dueDate: "",
-      status: "",
-      file: null,
-    });
-    toggleModal();
-  };
-
+const ModalForm = ({
+  isOpen,
+  toggleModal,
+  text,
+  formData,
+  handleInputChange,
+  handleFileChange,
+  handleSubmit,
+}) => {
+ 
   return (
-    <>
-      <button
-        onClick={toggleModal}
-        id="modal-button"
-        className="float-right mb-5  text-sm text-white bg-green-600 rounded-md px-4 py-2  hover:bg-green-700 focus:outline-none focus:bg-green-700"
-      >
-        Tambah
-      </button>
+    <div>
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
           <div className="bg-white max-w-xl w-full rounded-md">
             <form onSubmit={handleSubmit}>
               <div className="p-7 flex items-center justify-between border-b border-b-gray-300">
-                <h3 className="font-semibold text-xl">Add Research</h3>
+                <h3 className="font-semibold text-xl">{text}</h3>
                 <IoCloseOutline
                   size={20}
                   onClick={toggleModal}
@@ -188,7 +148,7 @@ const ModalForm = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

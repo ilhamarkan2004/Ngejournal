@@ -7,7 +7,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./pages/404.jsx";
 import  Dashboard  from "./pages/Admin/Dashboard.jsx";
 import Users from "./pages/Admin/Users.jsx";
-import ModalForm from "./components/Fragments/ModalForm.jsx";
+import Category from "./pages/Admin/Category.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,8 +32,8 @@ const router = createBrowserRouter([
     element: <Users />,
   },
   {
-    path: "/form",
-    element: <ModalForm />,
+    path: "/category",
+    element: <Category />,
   },
 ]);
 

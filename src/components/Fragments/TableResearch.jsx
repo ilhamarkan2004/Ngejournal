@@ -1,7 +1,53 @@
 import { FaPencil } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
 import ModalForm from "./ModalForm";
+import { useState } from "react";
 const TableResearch = () => {
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [formData, setFormData] = useState({
+      title: "",
+      startDate: "",
+      dueDate: "",
+      status: "",
+      file: null,
+    });
+
+    const toggleAddModal = () => {
+      setIsAddModalOpen(!isAddModalOpen);
+    };
+    const toggleEditModal = () => {
+      setIsEditModalOpen(!isEditModalOpen);
+    };
+
+    const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    };
+
+    const handleFileChange = (e) => {
+      const file = e.target.files[0];
+      setFormData({
+        ...formData,
+        file: file,
+      });
+    };
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log("Form Data:", formData);
+      setFormData({
+        title: "",
+        startDate: "",
+        dueDate: "",
+        status: "",
+        file: null,
+      });
+      toggleAddModal();
+    };
   return (
     <div className="container mx-auto px-4 sm:px-8">
       <div className="py-8">
@@ -11,7 +57,24 @@ const TableResearch = () => {
           </h2>
         </div>
         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-          <ModalForm/>
+          <button
+            onClick={toggleAddModal}
+            id="modal-button"
+            className="float-right mb-5  text-sm text-white bg-green-600 rounded-md px-4 py-2  hover:bg-green-700 focus:outline-none focus:bg-green-700"
+          >
+            Tambah
+          </button>
+          {isAddModalOpen && (
+            <ModalForm
+              isOpen={isAddModalOpen}
+              toggleModal={toggleAddModal}
+              text="Add Research"
+              formData={formData}
+              handleInputChange={handleInputChange}
+              handleFileChange={handleFileChange}
+              handleSubmit={handleSubmit}
+            />
+          )}
           <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
             <table className="min-w-full leading-normal">
               <thead>
@@ -89,10 +152,10 @@ const TableResearch = () => {
                   </td>
                   <td className="border-b border-gray-200 bg-white text-sm text-center">
                     <div className="flex justify-center items-center gap-x-3">
-                      <a href="">
+                      <button onClick={toggleEditModal} id="modal-button">
                         <FaPencil size={18} />
-                      </a>
-                      <a href="">
+                      </button>
+                      <a href="" onClick={() => confirm("Are you sure?")}>
                         <FaTrashAlt size={18} />
                       </a>
                     </div>
@@ -145,10 +208,21 @@ const TableResearch = () => {
                     </span>
                   </td>
                   <td className="border-b border-gray-200 bg-white text-sm text-center">
-                    <div className="flex justify-center items-center gap-x-3">
-                      <a href="">
+                    <div className="mx-auto">
+                      <button>
                         <FaPencil size={18} />
-                      </a>
+                      </button>
+                      {isEditModalOpen && (
+                        <ModalForm 
+                          isOpen={isEditModalOpen}
+                          toggleModal={toggleEditModal}
+                          text="Edit Research"
+                          formData={formData}
+                          handleInputChange={handleInputChange}
+                          handleFileChange={handleFileChange}
+                          handleSubmit={handleSubmit}
+                        />
+                      )}
                       <a href="">
                         <FaTrashAlt size={18} />
                       </a>
