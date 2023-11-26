@@ -3,7 +3,7 @@ import { IoMdTime } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa6";
 const Main = () => {
   return (
-    <div className="flex-1 mt-5 py-5 px-8 lg:px-20">
+    <div className="flex-1 mt-20 py-5  px-8 lg:px-20">
       {" "}
       {/* Bagian konten */}
       <h1 className="text-2xl lg:text-4xl font-serif font-bold mb-4 lg:mb-8">

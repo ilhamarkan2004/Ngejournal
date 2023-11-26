@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { RxDashboard } from "react-icons/rx";
 import { GrTask } from "react-icons/gr";
@@ -6,6 +6,7 @@ import { GrResources } from "react-icons/gr";
 import { HiBeaker } from "react-icons/hi";
 import { FaCircleChevronLeft } from "react-icons/fa6";
 import { BiLogOut } from "react-icons/bi";
+import { HiClipboardDocumentList } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -16,6 +17,11 @@ const Sidebar = () => {
       icon: <RxDashboard size={20} className="mr-4" />,
       text: "Dashboard",
       url: "dashboard",
+    },
+    {
+      icon: <HiClipboardDocumentList size={20} className="mr-4" />,
+      text: "Category",
+      url: "category",
     },
     {
       icon: <HiBeaker size={20} className="mr-4" />,
@@ -35,8 +41,33 @@ const Sidebar = () => {
     },
   ];
 
+   const [scrolled, setScrolled] = useState(false);
+
+   useEffect(() => {
+     const handleScroll = () => {
+       const isScrolled = window.scrollY > 50;
+       if (isScrolled !== scrolled) {
+         setScrolled(isScrolled);
+       }
+     };
+
+     window.addEventListener("scroll", handleScroll);
+
+     // Clean up listener saat komponen tidak lagi digunakan
+     return () => {
+       window.removeEventListener("scroll", handleScroll);
+     };
+   }, [scrolled]);
+
+
+  
+
   return (
-    <div className="max-w-[1640px] mx-auto flex justify-between items-center p-4 shadow-sm">
+    <div
+      className={`max-w-full mx-auto flex justify-between items-center p-4 shadow-sm fixed top-0 w-full z-10 transition ease-in-out duration-300 ${
+        scrolled ? "bg-[#000842]  text-slate-200" : "bg-white"
+      }`}
+    >
       {/* Left side */}
       <div className="flex items-center">
         <div onClick={() => setNav(!nav)} className="cursor-pointer">
