@@ -12,6 +12,11 @@ import { Link } from "react-router-dom";
 const Sidebar = () => {
   const [nav, setNav] = useState(true);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
+
   const menuItems = [
     {
       icon: <RxDashboard size={20} className="mr-4" />,
@@ -37,30 +42,27 @@ const Sidebar = () => {
     {
       icon: <BiLogOut size={20} className="mr-4" />,
       text: "Logout",
-      url: "logout",
+      onClick: handleLogout,
     },
   ];
 
-   const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-   useEffect(() => {
-     const handleScroll = () => {
-       const isScrolled = window.scrollY > 50;
-       if (isScrolled !== scrolled) {
-         setScrolled(isScrolled);
-       }
-     };
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 50;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
 
-     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
-     // Clean up listener saat komponen tidak lagi digunakan
-     return () => {
-       window.removeEventListener("scroll", handleScroll);
-     };
-   }, [scrolled]);
-
-
-  
+    // Clean up listener saat komponen tidak lagi digunakan
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrolled]);
 
   return (
     <div
@@ -119,15 +121,24 @@ const Sidebar = () => {
         </h2>
         <nav>
           <ul className="flex flex-col mt-10 text-slate-200">
-            {menuItems.map(({ icon, text, url }, index) => {
+            {menuItems.map(({ icon, text, url, onClick }, index) => {
               return (
                 <div key={index} className=" py-2.5">
-                  <Link
-                    to={`/${url}`}
-                    className="text-sm flex cursor-pointer font-serif  w-[60%] rounded-full mx-auto p-2 hover:text-orange-600 hover:bg-white"
-                  >
-                    {icon} {text}
-                  </Link>
+                  {onClick ? (
+                    <button
+                      onClick={onClick}
+                      className="text-sm flex cursor-pointer font-serif  w-[60%] rounded-full mx-auto p-2 hover:text-orange-600 hover:bg-white"
+                    >
+                      {icon} {text}
+                    </button>
+                  ) : (
+                    <Link
+                      to={`/${url}`}
+                      className="text-sm flex cursor-pointer font-serif  w-[60%] rounded-full mx-auto p-2 hover:text-orange-600 hover:bg-white"
+                    >
+                      {icon} {text}
+                    </Link>
+                  )}
                 </div>
               );
             })}

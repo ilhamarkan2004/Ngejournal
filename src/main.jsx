@@ -1,11 +1,12 @@
 import React from "react";
+import { createContext, useReducer } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./pages/404.jsx";
-import  Dashboard  from "./pages/Admin/Dashboard.jsx";
+import Dashboard from "./pages/Admin/Dashboard.jsx";
 import Users from "./pages/Admin/Users.jsx";
 import Category from "./pages/Admin/Category.jsx";
 
@@ -37,8 +38,22 @@ const router = createBrowserRouter([
   },
 ]);
 
+export const authContext = createContext();
+
+const initialState = {
+  isAuthenticate: false,
+  user: null,
+  token: null,
+};
+
+const reducer = (state,dispatch) => {
+  switch(Action.type){
+    
+  }
+}
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-   <RouterProvider router={router}></RouterProvider>
+    <RouterProvider router={router}></RouterProvider>
   </React.StrictMode>
 );
