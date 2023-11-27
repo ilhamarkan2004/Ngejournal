@@ -10,7 +10,6 @@ const ModalForm = ({
   handleFileChange,
   handleSubmit,
 }) => {
- 
   return (
     <div>
       {isOpen && (

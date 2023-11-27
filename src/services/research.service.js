@@ -1,10 +1,16 @@
 import axios from "axios";
 
 export const getResearchs = (callback) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer" + localStorage.getItem("token"),
+    },
+  };
   axios
-    .get("http://localhost:8000/api/research")
+    .get("http://127.0.0.1:8000/api/research", config)
     .then((res) => {
-      callback(res.data);
+      callback(res.data.data.data);
     })
     .catch((error) => {
       console.log(error);
