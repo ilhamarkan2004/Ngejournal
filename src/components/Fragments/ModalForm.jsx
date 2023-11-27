@@ -13,7 +13,7 @@ const ModalForm = ({
   return (
     <div>
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
           <div className="bg-white max-w-xl w-full rounded-md">
             <form onSubmit={handleSubmit}>
               <div className="p-7 flex items-center justify-between border-b border-b-gray-300">
