@@ -7,7 +7,16 @@ const Dashboard = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      window.location.href = "/login"; // Redirect ke halaman login jika tidak ada token
+      window.location.href = "/login";
+    }
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const tokenExpiration = localStorage.getItem("tokenExpiration");
+    const currentTime = new Date().getTime();
+    if (!token || !tokenExpiration || currentTime > tokenExpiration) {
+      window.location.href = "/login";
     }
   }, []);
   return (
