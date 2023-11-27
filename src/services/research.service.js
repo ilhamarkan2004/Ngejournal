@@ -4,7 +4,7 @@ export const getResearchs = (callback) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer" + localStorage.getItem("token"),
+      "Authorization": "Bearer" + localStorage.getItem("token"),
     },
   };
   axios
@@ -16,6 +16,25 @@ export const getResearchs = (callback) => {
       console.log(error);
     });
 };
+
+export const addResearch = (callback) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer" + localStorage.getItem("token"),
+    },
+  };
+ axios
+   .post("http://127.0.0.1:8000/api/research", data,config)
+   .then((res) => {
+     callback(true, res.data.data);
+   })
+   .catch((error) => {
+     callback(false, error);
+   });
+};
+
+
 export const getDetailProduct = (id, callback) => {
   axios
     .get(`https://fakestoreapi.com/products/${id}`)

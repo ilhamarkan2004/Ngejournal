@@ -1,12 +1,15 @@
 import { useEffect } from "react";
 import FormLogin from "../components/Fragments/FormLogin";
 import AuthLayout from "../components/Layouts/AuthLayout";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      window.location.href = "/dashboard"; // Redirect ke halaman dashboard jika token sudah ada
+      navigate("/dashboard"); // Redirect ke halaman dashboard jika token sudah ada
     }
   }, []);
   return (

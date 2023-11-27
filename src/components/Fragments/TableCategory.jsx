@@ -1,5 +1,14 @@
+import { useEffect, useState } from "react";
 import { IoEyeSharp } from "react-icons/io5";
+import { getCategory } from "../../services/category.services";
 const TableCategory = () => {
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    getCategory((data) => {
+      setCategory(data);
+    });
+  }, []);
   return (
     <div className="container mx-auto px-4 sm:px-8">
       <div className="py-8">
@@ -20,36 +29,20 @@ const TableCategory = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p className="text-gray-900 whitespace-no-wrap text-center">
-                      Golongan A
-                    </p>
-                  </td>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <IoEyeSharp className="cursor-pointer" size={25} />
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p className="text-gray-900 whitespace-no-wrap text-center">
-                      Golongan B
-                    </p>
-                  </td>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <IoEyeSharp className="cursor-pointer" size={25} />
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p className="text-gray-900 whitespace-no-wrap text-center">
-                      Golongan C
-                    </p>
-                  </td>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <IoEyeSharp className="cursor-pointer" size={25} />
-                  </td>
-                </tr>
+                {category.length > 0 &&
+                  category.map((category) => (
+                    <tr>
+                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <p className="text-gray-900 whitespace-no-wrap text-center">
+                          {category.name}
+                        </p>
+                      </td>
+                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <IoEyeSharp className="cursor-pointer" size={25} />
+                      </td>
+                    </tr>
+                  ))}
+        
               </tbody>
             </table>
           </div>
