@@ -69,9 +69,9 @@ const Sidebar = () => {
       }`}
     >
       {/* Left side */}
-      <div className="flex items-center">
+      <div className="flex h-14 items-center">
         <div onClick={() => setNav(!nav)} className="cursor-pointer">
-          <AiOutlineMenu size={30} />
+          <AiOutlineMenu size={25} />
         </div>
         <h1 className="text-2xl sm:text-3xl lg:text-4xl px-2">
           Nge<span className="font-bold">Journal</span>
