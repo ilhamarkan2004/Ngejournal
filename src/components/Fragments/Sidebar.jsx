@@ -7,14 +7,16 @@ import { HiBeaker } from "react-icons/hi";
 import { FaCircleChevronLeft } from "react-icons/fa6";
 import { BiLogOut } from "react-icons/bi";
 import { HiClipboardDocumentList } from "react-icons/hi2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const [nav, setNav] = useState(true);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.location.href = "/login";
+    localStorage.removeItem("tokenExpiration");
+    navigate("/login");
   };
 
   const menuItems = [

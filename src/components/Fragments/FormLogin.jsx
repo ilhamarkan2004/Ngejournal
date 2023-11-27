@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../Elements/Button";
 import InputForm from "../Elements/Input";
 import { login } from "../../services/auth.service";
+import { useNavigate } from "react-router-dom";
 
 const FormLogin = () => {
   const [loginFailed, setLoginFailed] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -23,7 +25,7 @@ const FormLogin = () => {
         const expirationTime = new Date().getTime() + res.expires_in * 1000;
         localStorage.setItem("token", res.access_token);
         localStorage.setItem("tokenExpiration", expirationTime);
-        window.location.href = "/dashboard";
+        navigate("/dashboard");
       } else {
         setLoginFailed(res.response.data.message);
         console.log(res.response.data.message);
