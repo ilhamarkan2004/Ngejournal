@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const [nav, setNav] = useState(true);
+  const [nav, setNav] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -118,9 +118,9 @@ const Sidebar = () => {
           className="absolute -right-3 top-4  cursor-pointer text-white "
         />
         {/* right-4 top-6 */}
-        <h2 className="text-2xl p-4 text-white">
-          Nge <span className="font-bold">Journal</span>
-        </h2>
+        
+         <img src="images/logo.png" width="400px" alt="" />
+       
         <nav>
           <ul className="flex flex-col mt-10 text-slate-200">
             {menuItems.map(({ icon, text, url, onClick }, index) => {
