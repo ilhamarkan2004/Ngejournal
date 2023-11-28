@@ -1,15 +1,71 @@
 import React, { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
+import { addResearch } from "../../services/research.service";
 
-const ModalForm = ({
-  isOpen,
-  toggleModal,
-  text,
-  formData,
-  handleInputChange,
-  handleFileChange,
-  handleSubmit,
-}) => {
+const ModalForm = ({ isOpen, toggleModal, text }) => {
+   const [formData, setFormData] = useState({
+     code: "",
+     name: "",
+     description: "",
+     category: "",
+     start_date: "",
+     due_date: "",
+     research_category_id: "",
+     status: "",
+     doc: null,
+   });
+  const handleSubmit = (event) => {
+    event.preventDefault(); 
+    function generateRandomNumber() {
+      var minm = 100000;
+      var maxm = 999999;
+      return Math.floor(Math.random() * (maxm - minm + 1)) + minm;
+    }
+    const data = {
+      code: generateRandomNumber(),
+      name: event.target.name.value,
+      description: event.target.description.value,
+      start_date: event.target.start_date.value,
+      due_date: event.target.due_date.value,
+      research_category_id: event.target.category.value,
+      status: event.target.status.value,
+      doc: event.target.doc.files[0],
+    };
+    addResearch(data, (status, res) => {
+      if (status) {
+        console.log("success", res);
+        setFormData({
+          code: "",
+          name: "",
+          description: "",
+          category: "",
+          start_date: "",
+          due_date: "",
+          research_category_id: "",
+          status: "",
+          doc: null,
+        });
+
+        const newFileInput = document.createElement("input");
+        newFileInput.type = "file";
+        newFileInput.name = "doc";
+
+        const oldFileInput = document.getElementsByName("doc")[0];
+        oldFileInput.parentNode.replaceChild(newFileInput, oldFileInput);
+      } else {
+        console.log('error',res);
+      }
+    });
+    console.log(data);
+  };
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    };
+
   return (
     <div>
       {isOpen && (
@@ -28,46 +84,60 @@ const ModalForm = ({
                 <div className="mb-7">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="title"
+                    htmlFor="name"
                   >
-                    Title
+                    Name
                   </label>
                   <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
                     onChange={handleInputChange}
+                    value={formData.name}
+                    type="text"
+                    name="name"
                     className="w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 hover:border-blue-500"
                   />
+                </div>
+                <div className="mb-7">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    htmlFor="description"
+                  >
+                    Description
+                  </label>
+                  <textarea
+                    onChange={handleInputChange}
+                    value={formData.description}
+                    name="description"
+                    className="w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 hover:border-blue-500"
+                  ></textarea>
                 </div>
                 <div className="flex mb-7">
                   <div className="w-1/2 mr-2">
                     <label
                       className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="startDate"
+                      htmlFor="start_date"
                     >
                       Start Date
                     </label>
                     <input
-                      type="date"
-                      name="startDate"
-                      value={formData.startDate}
+                      value={formData.start_date}
                       onChange={handleInputChange}
+                      type="date"
+                      name="start_date"
                       className="w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 hover:border-blue-500"
                     />
                   </div>
                   <div className="w-1/2 ml-2">
                     <label
                       className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="dueDate"
+                      htmlFor="due_date"
                     >
                       Due Date
                     </label>
                     <input
-                      type="date"
-                      name="dueDate"
-                      value={formData.dueDate}
                       onChange={handleInputChange}
+                      value={formData.due_date}
+                      type="date"
+                      name="due_date"
                       className="w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 hover:border-blue-500"
                     />
                   </div>
@@ -76,18 +146,18 @@ const ModalForm = ({
                   <div className="w-1/2 mr-2">
                     <label
                       className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="status"
+                      htmlFor="category"
                     >
                       Category
                     </label>
                     <select
-                      name="category"
-                      value={formData.category}
                       onChange={handleInputChange}
+                      value={formData.category}
+                      name="category"
                       className="w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 hover:border-blue-500"
                     >
                       <option value="">Select Category</option>
-                      <option value="Golongan A">Golongan A</option>
+                      <option value="3">Golongan A</option>
                       <option value="Golongan B">Golongan B</option>
                       <option value="Golongan C">Golongan C</option>
                     </select>
@@ -100,14 +170,14 @@ const ModalForm = ({
                       Status
                     </label>
                     <select
-                      name="status"
-                      value={formData.status}
                       onChange={handleInputChange}
+                      value={formData.status}
+                      name="status"
                       className="w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 hover:border-blue-500"
                     >
                       <option value="">Select Status</option>
-                      <option value="On Going">On Going</option>
-                      <option value="Completed">Completed</option>
+                      <option value="ongoing">On Going</option>
+                      <option value="completed">Completed</option>
                       <option value="Overdue">Overdue</option>
                     </select>
                   </div>
@@ -115,14 +185,15 @@ const ModalForm = ({
                 <div className="mb-7">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="file"
+                    htmlFor="doc"
                   >
                     Upload Document
                   </label>
                   <input
+                    onChange={handleInputChange}
+                    value={formData.doc}
                     type="file"
-                    name="file"
-                    onChange={handleFileChange}
+                    name="doc"
                     className="w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 hover:border-blue-500"
                   />
                 </div>
