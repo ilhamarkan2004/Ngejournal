@@ -1,21 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { addResearch } from "../../services/research.service";
+import { getCategory } from "../../services/category.services";
 
 const ModalForm = ({ isOpen, toggleModal, text }) => {
-   const [formData, setFormData] = useState({
-     code: "",
-     name: "",
-     description: "",
-     category: "",
-     start_date: "",
-     due_date: "",
-     research_category_id: "",
-     status: "",
-     doc: null,
-   });
+  const [categories, setCategories] = useState([]);
+  const [formData, setFormData] = useState({
+    code: "",
+    name: "",
+    description: "",
+    category: "",
+    start_date: "",
+    due_date: "",
+    research_category_id: "",
+    status: "",
+    doc: null,
+  });
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = () => {
+    getCategory((data) => {
+      setCategories(data);
+    });
+  };
+
   const handleSubmit = (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
     function generateRandomNumber() {
       var minm = 100000;
       var maxm = 999999;
@@ -53,18 +66,18 @@ const ModalForm = ({ isOpen, toggleModal, text }) => {
         const oldFileInput = document.getElementsByName("doc")[0];
         oldFileInput.parentNode.replaceChild(newFileInput, oldFileInput);
       } else {
-        console.log('error',res);
+        console.log("error", res);
       }
     });
     console.log(data);
   };
-    const handleInputChange = (event) => {
-      const { name, value } = event.target;
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    };
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
 
   return (
     <div>
@@ -93,6 +106,7 @@ const ModalForm = ({ isOpen, toggleModal, text }) => {
                     value={formData.name}
                     type="text"
                     name="name"
+                    autocomplete="off"
                     className="w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 hover:border-blue-500"
                   />
                 </div>
@@ -157,9 +171,11 @@ const ModalForm = ({ isOpen, toggleModal, text }) => {
                       className="w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 hover:border-blue-500"
                     >
                       <option value="">Select Category</option>
-                      <option value="3">Golongan A</option>
-                      <option value="Golongan B">Golongan B</option>
-                      <option value="Golongan C">Golongan C</option>
+                      {categories.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div className="w-1/2 ml-2">

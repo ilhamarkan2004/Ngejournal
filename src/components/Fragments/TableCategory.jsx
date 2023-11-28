@@ -6,12 +6,12 @@ import { FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
 import ModalFormCategory from "./ModalFormCategory";
 
-
 const TableCategory = () => {
   const [category, setCategory] = useState([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [formData, setFormData] = useState({
+    id: null,
     name: "",
   });
 
@@ -24,16 +24,54 @@ const TableCategory = () => {
   const toggleAddModal = () => {
     setIsAddModalOpen(!isAddModalOpen);
   };
-  const toggleEditModal = () => {
+  const toggleEditModal = (id, name) => {
     setIsEditModalOpen(!isEditModalOpen);
+    setFormData({
+      id: id,
+      name: name,
+    });
   };
+
+  //  const handleEditSubmit = () => {
+  //    const config = {
+  //      headers: {
+  //        "Content-Type": "Application/json",
+  //        Authorization: "Bearer " + localStorage.getItem("token"),
+  //      },
+  //    };
+
+  //    const updatedCategory = {
+  //      name: formData.name,
+  //    };
+
+  //    axios
+  //      .put(
+  //        `http://127.0.0.1:8000/api/research/category/${formData.id}`,
+  //        updatedCategory,
+  //        config
+  //      )
+  //      .then((res) => {
+  //        console.log(res);
+  //        getCategory((data) => {
+  //          setCategory(data);
+  //        });
+  //        setIsEditModalOpen(false);
+  //        setFormData({
+  //          id: null,
+  //          name: "",
+  //        });
+  //      })
+  //      .catch((error) => {
+  //        console.log(error);
+  //      });
+  //  };
 
   const handleDelete = (categoryId) => {
     if (window.confirm("Are you sure you want to delete?")) {
       const config = {
         headers: {
           "Content-Type": "Application/json",
-          "Authorization": "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       };
       axios
@@ -70,14 +108,6 @@ const TableCategory = () => {
           >
             Tambah
           </button>
-          {isAddModalOpen && (
-            <ModalFormCategory
-              isOpen={isAddModalOpen}
-              toggleModal={toggleAddModal}
-              text="Add Category"
-              formData={formData}
-            />
-          )}
           <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
             <table className="min-w-full leading-normal">
               <thead>
@@ -99,7 +129,12 @@ const TableCategory = () => {
                       </td>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div className="flex justify-center items-center gap-x-3">
-                          <button id="modal-button">
+                          <button
+                            id="modal-button"
+                            onClick={() =>
+                              toggleEditModal(category.id, category.id)
+                            }
+                          >
                             <FaPencil size={18} />
                           </button>
                           <button onClick={() => handleDelete(category.id)}>
@@ -113,6 +148,22 @@ const TableCategory = () => {
             </table>
           </div>
         </div>
+        {isAddModalOpen && (
+          <ModalFormCategory
+            isOpen={isAddModalOpen}
+            toggleModal={toggleAddModal}
+            text="Add Category"
+            formData={formData}
+          />
+        )}
+        {isEditModalOpen && (
+          <ModalFormCategory
+            isOpen={isEditModalOpen}
+            toggleModal={toggleEditModal}
+            text="Edit Category"
+            formData={formData}
+          />
+        )}
       </div>
     </div>
   );

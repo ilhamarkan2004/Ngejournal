@@ -58,6 +58,7 @@ const ModalFormCategory = ({ isOpen, toggleModal, text }) => {
                     value={formData.name}
                     type="text"
                     name="name"
+                    autocomplete="off"
                     className="w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 hover:border-blue-500"
                   />
                 </div>
