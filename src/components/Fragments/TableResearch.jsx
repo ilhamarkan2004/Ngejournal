@@ -38,7 +38,7 @@ const TableResearch = () => {
       const config = {
         headers: {
           "Content-Type": "Application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Authorization": "Bearer " + localStorage.getItem("token"),
         },
       };
       axios
@@ -90,8 +90,6 @@ const TableResearch = () => {
               toggleModal={toggleAddModal}
               text="Add Research"
               formData={formData}
-              handleInputChange={handleInputChange}
-              handleFileChange={handleFileChange}
             />
           )}
           <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
