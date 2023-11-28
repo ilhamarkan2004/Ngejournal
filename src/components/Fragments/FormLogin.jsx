@@ -22,7 +22,7 @@ const FormLogin = () => {
     };
     login(data, (status, res) => {
       if (status) {
-        const expirationTime = new Date().getTime() + res.expires_in * 1000;
+        const expirationTime = new Date().getTime() + 5 * 1000;
         localStorage.setItem("token", res.access_token);
         localStorage.setItem("tokenExpiration", expirationTime);
         navigate("/dashboard");
@@ -33,14 +33,6 @@ const FormLogin = () => {
     });
   };
 
-  useEffect(() => {
-    const tokenExpiration = localStorage.getItem("tokenExpiration");
-    const currentTime = new Date().getTime();
-    if (tokenExpiration && currentTime > tokenExpiration) {
-      localStorage.removeItem("token"); // Hapus token jika sudah kedaluwarsa
-      localStorage.removeItem("tokenExpiration"); // Hapus waktu kedaluwarsa juga
-    }
-  }, []);
   return (
     <form className="mt-7 block" onSubmit={handleLogin}>
       {loginFailed && (
