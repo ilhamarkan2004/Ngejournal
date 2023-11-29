@@ -3,6 +3,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import ModalForm from "./ModalForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { BiSolidDownload } from "react-icons/bi";
 import { getResearchs } from "../../services/research.service";
 
 const TableResearch = () => {
@@ -38,7 +39,7 @@ const TableResearch = () => {
       const config = {
         headers: {
           "Content-Type": "Application/json",
-          "Authorization": "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       };
       axios
@@ -68,6 +69,34 @@ const TableResearch = () => {
     const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
     return differenceInDays;
   };
+
+  function downloadFileWithAuthorization( fileUrl,name) {
+    axios({
+      url: fileUrl,
+      method: "GET",
+      responseType: "blob", 
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"), 
+      },
+    })
+      .then((response) => {
+         const href = URL.createObjectURL(response.data);
+
+        
+         const link = document.createElement("a");
+         link.href = href;
+         link.setAttribute("download", `${name}.pdf`); 
+         document.body.appendChild(link);
+         link.click();
+
+        
+         document.body.removeChild(link);
+         URL.revokeObjectURL(href);
+      })
+      .catch((error) => {
+        console.error("There was a problem with the download:", error);
+      });
+  }
   return (
     <div className="container mx-auto px-4 sm:px-8">
       <div className="py-8">
@@ -189,6 +218,9 @@ const TableResearch = () => {
                           </button>
                           <button onClick={() => handleDelete(research.id)}>
                             <FaTrashAlt size={18} />
+                          </button>
+                          <button onClick={()=>{downloadFileWithAuthorization(research.doc,research.name)}}>
+                            <BiSolidDownload size={23} />
                           </button>
                         </div>
                       </td>
