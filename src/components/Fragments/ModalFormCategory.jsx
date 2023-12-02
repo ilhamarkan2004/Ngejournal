@@ -1,26 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { addCategory } from "../../services/category.services";
+import { addCategory, updateCategory } from "../../services/category.services";
 
-const ModalFormCategory = ({ isOpen, toggleModal, text }) => {
+const ModalFormCategory = ({ isOpen, toggleModal, text, form }) => {
   const [formData, setFormData] = useState({
+    id: "",
     name: "",
   });
+  useEffect(() => {
+    if (form && form.id) {
+      setFormData({
+        id: form.id || "",
+        name: form.name || "",
+      });
+    }
+  }, [form]);
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const data = {
-      name: event.target.name.value,
+      name: formData.name,
     };
-    addCategory(data, (status, res) => {
-      if (status) {
-        console.log("success", res);
-        setFormData({
-          name: "",
-        });
-      } else {
-        console.log("error", res);
-      }
-    });
+
+    if (form && form.id) {
+      data.id = form.id
+      // If in edit mode, update the category
+      updateCategory(data, (status, res) => {
+        if (status) {
+          console.log("success", res);
+          setFormData({
+            name: "",
+          });
+          toggleModal(); // Close the modal after successful update
+        } else {
+          console.log("error", res);
+        }
+      });
+    } else {
+      // If in add mode, add a new category
+      addCategory(data, (status, res) => {
+        if (status) {
+          console.log("success", res);
+          setFormData({
+            name: "",
+          });
+          toggleModal(); // Close the modal after successful addition
+        } else {
+          console.log("error", res);
+        }
+      });
+    }
+
     console.log(data);
   };
   const handleInputChange = (event) => {
@@ -30,6 +60,8 @@ const ModalFormCategory = ({ isOpen, toggleModal, text }) => {
       [name]: value,
     }));
   };
+
+  console.log(form);
 
   return (
     <div>
@@ -58,7 +90,7 @@ const ModalFormCategory = ({ isOpen, toggleModal, text }) => {
                     value={formData.name}
                     type="text"
                     name="name"
-                    autocomplete="off"
+                    autoComplete="off"
                     className="w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 hover:border-blue-500"
                   />
                 </div>

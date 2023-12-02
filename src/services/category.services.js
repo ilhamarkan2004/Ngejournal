@@ -4,7 +4,7 @@ export const getCategory = (callback) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer" + localStorage.getItem("token"),
+      Authorization: "Bearer" + localStorage.getItem("token"),
     },
   };
   axios
@@ -17,16 +17,32 @@ export const getCategory = (callback) => {
     });
 };
 
-
 export const addCategory = (data, callback) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      "Authorization": "Bearer " + localStorage.getItem("token"),
     },
   };
   axios
     .post("http://127.0.0.1:8000/api/research/category", data, config)
+    .then((res) => {
+      callback(true, res);
+    })
+    .catch((error) => {
+      callback(false, error);
+    });
+};
+
+export const updateCategory = ( data, callback) => {
+   const config = {
+     headers: {
+       "Content-Type": "application/json",
+       "Authorization": "Bearer " + localStorage.getItem("token"),
+     },
+   };
+  axios
+    .put(`http://127.0.0.1:8000/api/research/category`, data, config)
     .then((res) => {
       callback(true, res);
     })

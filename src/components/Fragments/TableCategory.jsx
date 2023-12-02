@@ -132,7 +132,7 @@ const TableCategory = () => {
                           <button
                             id="modal-button"
                             onClick={() =>
-                              toggleEditModal(category.id, category.id)
+                              toggleEditModal(category.id, category.name)
                             }
                           >
                             <FaPencil size={18} />
@@ -161,7 +161,7 @@ const TableCategory = () => {
             isOpen={isEditModalOpen}
             toggleModal={toggleEditModal}
             text="Edit Category"
-            formData={formData}
+            form={formData}
           />
         )}
       </div>
