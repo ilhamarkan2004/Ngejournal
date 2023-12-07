@@ -1,5 +1,4 @@
 import React from "react";
-import { createContext, useReducer } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import Login from "./pages/Login.jsx";
@@ -37,20 +36,6 @@ const router = createBrowserRouter([
     element: <Category />,
   },
 ]);
-
-export const authContext = createContext();
-
-const initialState = {
-  isAuthenticate: false,
-  user: null,
-  token: null,
-};
-
-const reducer = (state,dispatch) => {
-  switch(Action.type){
-    
-  }
-}
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
