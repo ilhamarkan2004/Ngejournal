@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { IoEyeSharp } from "react-icons/io5";
 import { getCategory } from "../../services/category.services";
 import { FaPencil } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
@@ -120,8 +119,8 @@ const TableCategory = () => {
               </thead>
               <tbody>
                 {category.length > 0 &&
-                  category.map((category) => (
-                    <tr>
+                  category.map((category,index) => (
+                    <tr key={index}>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p className="text-gray-900 whitespace-no-wrap text-center">
                           {category.name}
